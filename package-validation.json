@@ -1,0 +1,8 @@
+{
+  "zip_integrity": true,
+  "extracted_worker_runs": true,
+  "public_name": "Voice Signal TTS",
+  "internal_driver": "douchTTS",
+  "qcp_bytes": 3736,
+  "live_NVDA_tested": false
+}

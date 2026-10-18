@@ -1,0 +1,16 @@
+Voice Signal TTS 0.1.0
+
+Initial NVDA addon release from Blazy Enterprises.
+
+Four original Motorola V3c voices: US English, Mexican Spanish, Canadian French,
+and Brazilian Portuguese. Includes native rate control, adjustable pitch and
+volume, nvwave playback, accented text, language switching and cancellation.
+
+Install the attached voiceSignalTTS-0.1.0.nvda-addon, restart NVDA, and select
+Voice Signal TTS with NVDA+Control+S. Requires 64-bit Windows and NVDA 2026.1+.
+The existing Motorola V323i addon can remain installed.
+
+Packaged synthesis and automated driver-boundary tests passed. Live NVDA
+validation is not yet recorded. This independent addon is not an official
+Motorola, VoiceSignal or Nuance release. Bundled firmware and third-party
+components retain their respective rights and licenses.

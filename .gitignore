@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+package-check/
+test-temp/
+validation-samples/
+addon/engine/firmware.bin
+addon/engine/qcp-header.bin
+addon/engine/ffmpeg.exe
+addon/engine/runtime/
+addon/engine/vendor/
+*.nvda-addon
+dist/

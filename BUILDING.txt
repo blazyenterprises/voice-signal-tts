@@ -1,0 +1,16 @@
+Building and testing
+
+Python 3 is required for the build scripts. The source repository contains the
+adapter and worker; large runtime/firmware dependencies are in the release addon.
+To reconstruct the build tree, extract the release .nvda-addon as a ZIP into
+addon/, then restore the repository's tracked source files if developing changes.
+Do not replace firmware.bin with another model's ROM: entry points are V3c-specific.
+
+Run python -I test_engine.py and python -I test_driver.py on Windows.
+Driver tests use the included recording NVDA adapter, not a live NVDA installation.
+Run python -I build.py to create a validated addon archive.
+
+The bundled source firmware is USC_V3c_04.08.00R_PRIii05698_MONSTER_01.shx,
+segment_05_0002f0f4.bin loaded at address zero. Speech executes under Unicorn;
+the worker's entry points and memory layout are specific to this firmware.
+The package uses Python 3.12, Unicorn 2.1.4 and FFmpeg.

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "rate-0",
+    "rate": 0,
+    "pitch": 50,
+    "seconds": 10.28,
+    "wall_seconds": 1.7534453000007488,
+    "peak": 25402
+  },
+  {
+    "name": "default",
+    "rate": 50,
+    "pitch": 50,
+    "seconds": 5.14,
+    "wall_seconds": 0.40778080000018235,
+    "peak": 18033
+  },
+  {
+    "name": "rate-100",
+    "rate": 100,
+    "pitch": 50,
+    "seconds": 2.58,
+    "wall_seconds": 0.39176640000005136,
+    "peak": 20694
+  },
+  {
+    "name": "pitch-0",
+    "rate": 50,
+    "pitch": 0,
+    "seconds": 5.15725,
+    "wall_seconds": 0.4244509999989532,
+    "peak": 17485
+  },
+  {
+    "name": "pitch-100",
+    "rate": 50,
+    "pitch": 100,
+    "seconds": 5.09775,
+    "wall_seconds": 0.4134248000009393,
+    "peak": 17623
+  },
+  {
+    "name": "numbers",
+    "rate": 50,
+    "pitch": 50,
+    "seconds": 4.64,
+    "wall_seconds": 0.4190817999988212,
+    "peak": 19051
+  },
+  {
+    "name": "fast-high",
+    "rate": 100,
+    "pitch": 100,
+    "seconds": 2.528875,
+    "wall_seconds": 0.46152799999981653,
+    "peak": 12730
+  },
+  {
+    "name": "esmx",
+    "rate": 50,
+    "pitch": 50,
+    "seconds": 5.32,
+    "wall_seconds": 0.4931159000007028,
+    "peak": 32767
+  },
+  {
+    "name": "frca",
+    "rate": 50,
+    "pitch": 50,
+    "seconds": 3.76,
+    "wall_seconds": 0.3976740999987669,
+    "peak": 28352
+  },
+  {
+    "name": "ptbr",
+    "rate": 50,
+    "pitch": 50,
+    "seconds": 5.84,
+    "wall_seconds": 0.46904910000012023,
+    "peak": 26125
+  }
+]

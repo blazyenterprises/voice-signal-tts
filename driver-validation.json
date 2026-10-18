@@ -1,0 +1,14 @@
+{
+  "real_synthesis": true,
+  "selected_device": true,
+  "index_notifications": true,
+  "breaks": true,
+  "spelling": true,
+  "volume_zero": true,
+  "pause_resume": true,
+  "cancel_active_worker_seconds": 0.000311100000544684,
+  "speech_after_cancel": true,
+  "long_text_chunking": true,
+  "termination": true,
+  "live_NVDA_tested": false
+}

@@ -13,7 +13,7 @@ sys.modules['speech.commands'].LangChangeCommand=LangChangeCommand
 spec=importlib.util.spec_from_file_location('testdriver',root/'addon/synthDrivers/douchTTS/__init__.py')
 m=importlib.util.module_from_spec(spec);sys.modules['testdriver']=m;spec.loader.exec_module(m)
 assert m.SynthDriver.check()
-assert m.legacy_text('Ã‰lÃ©phant, niÃ±o, aÃ§Ã£o, cÅ“ur.\u2066') == 'Ã‰lÃ©phant, niÃ±o, aÃ§Ã£o, coeur.'
+assert m.legacy_text('caf\u00e9 \u0153 \u2066') == 'caf\u00e9 oe '
 assert len(m.VOICES)==4
 d=m.SynthDriver()
 def wait_done(n):
@@ -59,6 +59,16 @@ assert seen==['enus','esmx','frca','ptbr','enus'],seen
 for voice in m.VOICES:
  d._set_voice(voice)
  assert d._get_language()==m.VOICES[voice][1]
+d._set_wordPauses(False);d._set_rateBoost(True);d._set_engineGain(25)
+assert not d._get_wordPauses() and d._get_rateBoost() and d._get_engineGain()==25
+captured=[]
+def capture_settings(text,voice,rate,generation):
+    captured.append(voice)
+    yield from original_synthesize(text,voice,rate,generation)
+d._synthesize=capture_settings
+d.speak(['Hello.',LangChangeCommand('fr_CA'),'Bonjour.'])
+wait_done(7)
+assert len(captured)==2 and all(v[2:]==(False,True,25) for v in captured)
 d.terminate()
 assert not d._thread.is_alive() and all(p.closed for p in Player.instances)
 report={'real_synthesis':True,'selected_device':True,'index_notifications':True,'breaks':True,'spelling':True,'volume_zero':True,'pause_resume':True,'cancel_active_worker_seconds':cancel,'speech_after_cancel':True,'long_text_chunking':True,'termination':True,'live_NVDA_tested':False}

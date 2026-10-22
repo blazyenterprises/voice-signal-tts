@@ -1,16 +1,26 @@
-Voice Signal TTS 0.1.0
+Voice Signal TTS 0.2.0
 
-Initial NVDA addon release from Blazy Enterprises.
+Connected speech is now available in all four voices: US English, Mexican
+Spanish, Canadian French, and Brazilian Portuguese. Turn off "Pause between
+words" in NVDA Speech settings to use it. The default retains the original
+word pauses; initial and punctuation boundaries are preserved.
 
-Four original Motorola V3c voices: US English, Mexican Spanish, Canadian French,
-and Brazilian Portuguese. Includes native rate control, adjustable pitch and
-volume, nvwave playback, accented text, language switching and cancellation.
+New controls:
+- Pause between words: choose original or connected delivery.
+- Rate boost: double the native speed multiplier, within the engine limit.
+- Engine gain: seven native attenuation steps. 100 retains the original level;
+  0 is the lowest engine gain, not mute. Use Volume to mute.
 
-Install the attached voiceSignalTTS-0.1.0.nvda-addon, restart NVDA, and select
-Voice Signal TTS with NVDA+Control+S. Requires 64-bit Windows and NVDA 2026.1+.
-The existing Motorola V323i addon can remain installed.
+Existing rate, pitch, volume, nvwave playback and saved settings remain.
+All controls are available in Speech settings and the synth settings ring.
 
-Packaged synthesis and automated driver-boundary tests passed. Live NVDA
-validation is not yet recorded. This independent addon is not an official
-Motorola, VoiceSignal or Nuance release. Bundled firmware and third-party
-components retain their respective rights and licenses.
+Install voiceSignalTTS-0.2.0.nvda-addon and restart NVDA.
+Requires 64-bit Windows and NVDA 2026.1 or later.
+
+Validation: real engine checks passed for all four languages, punctuation
+boundaries, gain and rate boost. Automated driver integration checks passed.
+The user confirmed connected speech works in live NVDA in all four languages.
+
+This independent addon is not an official Motorola, VoiceSignal or Nuance
+release. Bundled firmware and third-party components retain their respective
+rights and licenses.

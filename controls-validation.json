@@ -1,0 +1,34 @@
+{
+  "languages": [
+    {
+      "language": "enus",
+      "original_seconds": 2.04,
+      "connected_seconds": 1.68
+    },
+    {
+      "language": "esmx",
+      "original_seconds": 1.62,
+      "connected_seconds": 1.42
+    },
+    {
+      "language": "frca",
+      "original_seconds": 2.22,
+      "connected_seconds": 1.9000000000000001
+    },
+    {
+      "language": "ptbr",
+      "original_seconds": 2.2800000000000002,
+      "connected_seconds": 1.44
+    }
+  ],
+  "punctuation_preserved": true,
+  "gain_rms": [
+    2396.2390548580415,
+    534.6743007704894
+  ],
+  "rate_boost_frames": [
+    102,
+    51
+  ],
+  "live_NVDA_tested": false
+}

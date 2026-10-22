@@ -6,7 +6,7 @@
   "spelling": true,
   "volume_zero": true,
   "pause_resume": true,
-  "cancel_active_worker_seconds": 0.000311100000544684,
+  "cancel_active_worker_seconds": 0.00013480000006893533,
   "speech_after_cancel": true,
   "long_text_chunking": true,
   "termination": true,

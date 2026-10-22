@@ -5,6 +5,7 @@ import queue
 import subprocess
 import threading
 import unicodedata
+from autoSettingsUtils.driverSetting import BooleanDriverSetting, NumericDriverSetting
 import config
 import nvwave
 from logHandler import log
@@ -30,7 +31,10 @@ def legacy_text(text):
 class SynthDriver(BaseSynth):
     name = NAME
     description = 'Voice Signal TTS'
-    supportedSettings = (BaseSynth.VoiceSetting(), BaseSynth.RateSetting(), BaseSynth.PitchSetting(), BaseSynth.VolumeSetting())
+    supportedSettings = (BaseSynth.VoiceSetting(), BaseSynth.RateSetting(), BaseSynth.PitchSetting(), BaseSynth.VolumeSetting(),
+        BooleanDriverSetting('wordPauses', 'Pause between &words', defaultVal=True, availableInSettingsRing=True),
+        BooleanDriverSetting('rateBoost', 'Rate &boost', defaultVal=False, availableInSettingsRing=True),
+        NumericDriverSetting('engineGain', '&Engine gain', defaultVal=100, normalStep=10, availableInSettingsRing=True))
     supportedCommands = {IndexCommand, CharacterModeCommand, BreakCommand, LangChangeCommand}
     supportedNotifications = {synthIndexReached, synthDoneSpeaking}
     @classmethod
@@ -38,6 +42,7 @@ class SynthDriver(BaseSynth):
         return all((ROOT / name).is_file() for name in ('runtime/python.exe','worker.py','firmware.bin','qcp-header.bin','ffmpeg.exe'))
     def __init__(self):
         self._voice = next(iter(VOICES)); self._rate = 50; self._pitch = 50; self._volume = 100
+        self._wordPauses = True; self._rateBoost = False; self._engineGain = 100
         self._lock = threading.RLock(); self._generation = 0; self._closed = False
         self._failed = False; self._proc = None; self._player = None; self._paused = threading.Event(); self._paused.set()
         self._queue = queue.Queue()
@@ -55,6 +60,12 @@ class SynthDriver(BaseSynth):
     def _set_volume(self, value): self._volume = max(0, min(100, int(value)))
     def _get_pitch(self): return self._pitch
     def _set_pitch(self, value): self._pitch = max(0, min(100, int(value)))
+    def _get_wordPauses(self): return self._wordPauses
+    def _set_wordPauses(self, value): self._wordPauses = bool(value)
+    def _get_rateBoost(self): return self._rateBoost
+    def _set_rateBoost(self, value): self._rateBoost = bool(value)
+    def _get_engineGain(self): return self._engineGain
+    def _set_engineGain(self, value): self._engineGain = max(0,min(100,int(value)))
     def speak(self, speechSequence):
         parts = []; buf = []; chars = False
         def flush():
@@ -76,7 +87,7 @@ class SynthDriver(BaseSynth):
                 flush(); parts.append(('language', item.lang))
         flush()
         with self._lock:
-            if not self._closed: self._queue.put((self._generation, parts, (self._voice,self._pitch), self._rate, self._volume))
+            if not self._closed: self._queue.put((self._generation, parts, (self._voice,self._pitch,self._wordPauses,self._rateBoost,self._engineGain), self._rate, self._volume))
     def _current(self, generation): return not self._closed and generation == self._generation
     def _run(self, args, data, generation):
         with self._lock:
@@ -97,7 +108,7 @@ class SynthDriver(BaseSynth):
         text = legacy_text(text)
         if not text.strip(): return
         import json
-        request = json.dumps({'text':text, 'rate':rate, 'language':voice[0]}).encode('utf-8')
+        request = json.dumps({'text':text, 'rate':rate, 'language':voice[0], 'wordPauses':voice[2] if len(voice)>2 else True, 'rateBoost':voice[3] if len(voice)>3 else False, 'gain':round(((voice[4] if len(voice)>4 else 100)-100)*.06)}).encode('utf-8')
         try:
             qcp = self._run([str(ROOT/'runtime/python.exe'), '-I', str(ROOT/'worker.py')], request, generation)
         except RuntimeError as error:
@@ -140,7 +151,7 @@ class SynthDriver(BaseSynth):
                             language = value.replace('-', '_').lower()
                             selected = next((k for k,v in VOICES.items() if v[1].lower()==language), None)
                             if selected is None: selected = next((k for k,v in VOICES.items() if v[1][:2].lower()==language[:2]), voice[0])
-                        active_voice = (selected, voice[1])
+                        active_voice = (selected,) + voice[1:]
                         continue
                     if kind=='index':
                         if self._player: self._player.sync()

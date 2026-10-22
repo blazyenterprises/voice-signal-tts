@@ -39,3 +39,8 @@ sys.modules['nvwave']=types.SimpleNamespace(WavePlayer=Player)
 sys.modules['logHandler']=types.SimpleNamespace(log=types.SimpleNamespace(exception=lambda x: (_ for _ in ()).throw(AssertionError(x))))
 sys.modules['synthDriverHandler']=types.SimpleNamespace(SynthDriver=Base,VoiceInfo=lambda *x:x,synthIndexReached=index,synthDoneSpeaking=done)
 sys.modules['speech']=types.ModuleType('speech');sys.modules['speech.commands']=types.SimpleNamespace(IndexCommand=IndexCommand,BreakCommand=BreakCommand,CharacterModeCommand=CharacterModeCommand)
+
+class Setting:
+ def __init__(self,id,label,**kwargs):self.id=id;self.label=label;self.__dict__.update(kwargs)
+sys.modules['autoSettingsUtils']=types.ModuleType('autoSettingsUtils')
+sys.modules['autoSettingsUtils.driverSetting']=types.SimpleNamespace(BooleanDriverSetting=Setting,NumericDriverSetting=Setting)
